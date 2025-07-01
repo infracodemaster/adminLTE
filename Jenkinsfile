@@ -19,7 +19,14 @@ pipeline{
             steps {
                 script {
                     withSonarQubeEnv(credentialsId: 'sonar-secret') {
-                        sh "mvn sonar:sonar"
+                        sh '''
+                    sonar-scanner \
+                        -Dsonar.projectKey=adminLTE_key \
+                        -Dsonar.projectName=adminLTE \
+                        -Dsonar.sources=. \
+                        -Dsonar.language=js \
+                        -Dsonar.sourceEncoding=UTF-8
+                    '''
                     }
                 }
             }
